@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useUIStore } from '../../store/uiStore';
 import { useGroceryStore } from '../../store/groceryStore';
-import { useI18nStore } from '../../store/i18nStore';
+import { useI18nStore, I18nState } from '../../store/i18nStore';
 import { predictExpiryDays } from '../../utils/aiPredictor';
 import { 
   X, Camera, Loader2, Sparkles, 
@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function AddGroceryModal() {
   const { isAddModalOpen, closeAddModal } = useUIStore();
   const { addGrocery } = useGroceryStore();
-  const t = useI18nStore((state) => state.t);
+  const t = useI18nStore((state: I18nState) => state.t);
 
   // Form States
   const [itemName, setItemName] = useState('');

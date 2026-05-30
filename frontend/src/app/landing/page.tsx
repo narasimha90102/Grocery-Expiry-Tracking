@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../store/authStore';
-import { useI18nStore } from '../../store/i18nStore';
+import { useI18nStore, I18nState } from '../../store/i18nStore';
 import api from '../../lib/api';
 import axios from 'axios';
 import { 
@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function LandingPage() {
   const router = useRouter();
   const { setAuth, initAuth } = useAuthStore();
-  const t = useI18nStore((state) => state.t);
+  const t = useI18nStore((state: I18nState) => state.t);
 
   // Authentication States
   const [authMode, setAuthMode] = useState<'none' | 'login' | 'register' | 'forgot' | 'otp' | 'reset'>('none');
