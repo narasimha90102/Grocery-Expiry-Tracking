@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '../../../store/authStore';
-import { useGroceryStore } from '../../../store/groceryStore';
+import { useGroceryStore, GroceryItem } from '../../../store/groceryStore';
 import { useUIStore } from '../../../store/uiStore';
 import { useThemeStore } from '../../../store/themeStore';
 import { useI18nStore } from '../../../store/i18nStore';
@@ -227,7 +227,7 @@ export default function ProfilePage() {
     }
 
     const headers = ['Item Name', 'Category', 'Quantity', 'Purchase Date', 'Expiry Date', 'Status', 'Notes'];
-    const rows = groceries.map(item => [
+    const rows = groceries.map((item: GroceryItem) => [
       `"${item.itemName.replace(/"/g, '""')}"`,
       `"${item.category}"`,
       `"${item.quantity}"`,
@@ -238,7 +238,7 @@ export default function ProfilePage() {
     ]);
 
     const csvContent = "data:text/csv;charset=utf-8," 
-      + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      + [headers.join(','), ...rows.map((e: string[]) => e.join(','))].join('\n');
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -289,7 +289,7 @@ export default function ProfilePage() {
       doc.setFontSize(10);
       doc.setTextColor(80, 80, 80);
 
-      groceries.forEach((item) => {
+      groceries.forEach((item: GroceryItem) => {
         if (y > 275) {
           doc.addPage();
           y = 20;
