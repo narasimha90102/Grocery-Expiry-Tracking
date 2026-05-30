@@ -33,11 +33,11 @@ export default function CategoriesPage() {
 
   // Helper to count items per category
   const getCategoryCount = (catName: string) => {
-    return groceries.filter(item => item.category === catName).length;
+    return groceries.filter((item: GroceryItem) => item.category === catName).length;
   };
 
   const filteredItems = selectedCat 
-    ? groceries.filter(item => item.category === selectedCat)
+    ? groceries.filter((item: GroceryItem) => item.category === selectedCat)
     : [];
 
   return (
@@ -131,7 +131,7 @@ export default function CategoriesPage() {
               </div>
             ) : (
               <div className="flex-grow min-h-0 overflow-y-auto no-scrollbar bg-white dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800/80 rounded-2xl divide-y divide-slate-100 dark:divide-zinc-800/60 shadow-sm">
-                {filteredItems.map((item) => {
+                {filteredItems.map((item: GroceryItem) => {
                   const days = Math.ceil(
                     (new Date(item.expiryDate).getTime() - new Date().getTime()) / 
                     (1000 * 60 * 60 * 24)
