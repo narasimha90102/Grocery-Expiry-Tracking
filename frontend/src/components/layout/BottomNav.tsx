@@ -3,13 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { Home, LayoutGrid, Plus, Bell, User } from 'lucide-react';
 import { useUIStore } from '../../store/uiStore';
-import { useI18nStore } from '../../store/i18nStore';
+import { useI18nStore, I18nState } from '../../store/i18nStore';
 import { motion } from 'framer-motion';
 
 export default function BottomNav() {
   const router = useRouter();
   const { activeTab, setActiveTab, openAddModal } = useUIStore();
-  const t = useI18nStore((state) => state.t);
+  const t = useI18nStore((state: I18nState) => state.t);
 
   const navItems = [
     { id: 'home', label: t('home'), icon: Home, route: '/dashboard' },
