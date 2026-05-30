@@ -175,11 +175,11 @@ export default function LandingPage() {
   const handleGoogleLogin = () => {
     const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
-    const forceReal = process.env.NEXT_PUBLIC_FORCE_REAL_GOOGLE === 'true';
+    const forceReal = (process as any).env.NEXT_PUBLIC_FORCE_REAL_GOOGLE === 'true';
     const isGoogleSupported = isLocalhost || isHttps || forceReal;
     
     const google = typeof window !== 'undefined' ? (window as any).google : null;
-    const forceSimulated = process.env.NEXT_PUBLIC_USE_SIMULATED_GOOGLE === 'true';
+    const forceSimulated = (process as any).env.NEXT_PUBLIC_USE_SIMULATED_GOOGLE === 'true';
 
     // Fallback to simulation if Google SDK is blocked by adblocker, local hotspot IPs, or forced via env configuration
     if (!isGoogleSupported || !google || forceSimulated) {
@@ -215,7 +215,7 @@ export default function LandingPage() {
 
     try {
       const client = google.accounts.oauth2.initTokenClient({
-        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "287589447782-8c5g4p509p51ttuuvk39l9n6ev6ft1no.apps.googleusercontent.com",
+        client_id: (process as any).env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "287589447782-8c5g4p509p51ttuuvk39l9n6ev6ft1no.apps.googleusercontent.com",
         scope: "openid profile email",
         callback: async (tokenResponse: any) => {
           if (tokenResponse.error) {
