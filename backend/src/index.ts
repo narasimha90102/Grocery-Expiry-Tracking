@@ -142,11 +142,16 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-let PORT = process.env.PORT || 5002;
+let PORT = process.env.PORT || 5001;
 
-// Explicit protection: Do not use port 5001 if the frontend is using it or if it causes EADDRINUSE collisions
-if (Number(PORT) === 5001) {
-  console.log(`Port 5001 is reserved for frontend. Redirecting backend to port 5002.`);
+// Render environment collision protection: If running concurrently on a single Render instance,
+// Next.js will bind to the main container port (typically 5001 or 10000).
+// In this case, we automatically redirect the backend to port 5002 to prevent EADDRINUSE collisions.
+if (process.env.RENDER && Number(PORT) === 5001) {
+  console.log(`Render detected. Port 5001 is reserved for Next.js frontend. Redirecting backend server to port 5002.`);
+  PORT = 5002;
+} else if (process.env.RENDER && Number(PORT) === 10000) {
+  console.log(`Render detected. Port 10000 is reserved for Next.js frontend. Redirecting backend server to port 5002.`);
   PORT = 5002;
 }
 
