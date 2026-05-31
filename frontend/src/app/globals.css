@@ -3,7 +3,7 @@
 @theme {
   --color-primary: #2E7D32;
   --color-primary-light: #4CAF50;
-  --color-primary-bg: #E8F5E9;
+  --color-primary-bg: var(--primary-bg);
   
   --color-expired: #EF5350;
   --color-expiring-soon: #FF9800;
@@ -15,35 +15,98 @@
   
   --radius-custom: 1.25rem;
 
-  /* Premium high contrast, extremely readable, user-friendly slate colors (forced to luxury dark mode) */
-  --color-white: #16222f; /* Deep elegant dark slate for cards (replaces light white background!) */
+  /* Premium high contrast, extremely readable, user-friendly slate colors (dynamically mapped!) */
+  --color-white: var(--card-bg); /* Mapped to card background! */
   
-  --color-slate-50: #1c2b3a; /* Lighter slate hover states */
-  --color-slate-100: #223347; /* Elegant dark borders */
-  --color-slate-150: #2a3e55;
-  --color-slate-200: #314862;
-  --color-slate-300: #425b7a;
-  --color-slate-350: #cbd5e1;
-  --color-slate-400: #cbd5e1; /* Soft cream grey text */
-  --color-slate-450: #cbd5e1; 
-  --color-slate-500: #e2e8f0; /* Crisp cream grey text */
-  --color-slate-650: #e2e8f0;
-  --color-slate-800: #ffffff; /* Solid white header text (replaces black!) */
-  --color-slate-900: #ffffff; /* Solid white text (replaces black!) */
-  --color-slate-950: #ffffff;
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-150: var(--slate-150);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-350: var(--slate-350);
+  --color-slate-400: var(--slate-400);
+  --color-slate-450: var(--slate-450); 
+  --color-slate-500: var(--slate-500);
+  --color-slate-650: var(--slate-650);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
   
-  --color-zinc-900: #101720;
-  --color-zinc-850: #16222f;
-  --color-zinc-800: #1c2b3a;
-  --color-zinc-700: #2a3e55;
-  --color-zinc-650: #cbd5e1;
-  --color-zinc-500: #cbd5e1;
-  --color-zinc-400: #e2e8f0;
+  --color-zinc-900: var(--zinc-900);
+  --color-zinc-850: var(--zinc-850);
+  --color-zinc-800: var(--zinc-800);
+  --color-zinc-700: var(--zinc-700);
+  --color-zinc-650: var(--zinc-650);
+  --color-zinc-500: var(--zinc-500);
+  --color-zinc-400: var(--zinc-400);
 }
 
 :root {
+  /* Premium Slate Light Mode Variables */
+  --background: #f8fafc; /* Elegant light slate background */
+  --foreground: #0f172a; /* Deep slate-900 for premium readable text */
+  
+  --primary-bg: #E8F5E9; /* Soft green badge background */
+  
+  --card-bg: #ffffff; /* True white for cards */
+  
+  /* Slate shades for Light Mode */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-150: #e2e8f0;
+  --slate-200: #cbd5e1;
+  --slate-300: #94a3b8;
+  --slate-350: #64748b;
+  --slate-400: #475569;
+  --slate-450: #334155; 
+  --slate-500: #1e293b;
+  --slate-650: #0f172a;
+  --slate-800: #0f172a;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+  
+  /* Zinc shades for Light Mode */
+  --zinc-900: #f1f5f9; /* Input field backgrounds */
+  --zinc-850: #ffffff; /* Cards background */
+  --zinc-800: #cbd5e1;
+  --zinc-700: #cbd5e1;
+  --zinc-650: #64748b;
+  --zinc-500: #475569;
+  --zinc-400: #1e293b;
+}
+
+.dark {
+  /* Premium Luxury Deep-Slate Dark Mode Variables */
   --background: #0b1116; /* Clean deep slate-black background */
   --foreground: #ffffff; /* Crystal highly-visible white text */
+  
+  --primary-bg: #1b2e1e; /* Deep green badge background */
+  
+  --card-bg: #16222f; /* Deep elegant dark slate for cards */
+  
+  /* Slate shades for Dark Mode */
+  --slate-50: #1c2b3a; /* Lighter slate hover states */
+  --slate-100: #223347; /* Elegant dark borders */
+  --slate-150: #2a3e55;
+  --slate-200: #314862;
+  --slate-300: #425b7a;
+  --slate-350: #cbd5e1;
+  --slate-400: #cbd5e1; /* Soft cream grey text */
+  --slate-450: #cbd5e1; 
+  --slate-500: #e2e8f0; /* Crisp cream grey text */
+  --slate-650: #e2e8f0;
+  --slate-800: #ffffff; /* Solid white header text */
+  --slate-900: #ffffff;
+  --slate-950: #ffffff;
+  
+  /* Zinc shades for Dark Mode */
+  --zinc-900: #101720;
+  --zinc-850: #16222f;
+  --zinc-800: #1c2b3a;
+  --zinc-700: #2a3e55;
+  --zinc-650: #cbd5e1;
+  --zinc-500: #cbd5e1;
+  --zinc-400: #e2e8f0;
 }
 
 /* Universal global typography scaling by +2px (highly readable on mobile!) */
@@ -61,21 +124,18 @@ html {
 .text-\[14px\] { font-size: 16px !important; }
 .text-\[15px\] { font-size: 17px !important; }
 
-.dark {
-  --background: #0b1116; /* Clean deep slate-black background */
-  --foreground: #ffffff; /* Crystal highly-visible white text */
-}
-
 body {
   background-color: var(--background) !important;
   color: var(--foreground) !important;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Force excellent text visibility for form fields and control buttons across both light and dark modes */
 input, select, textarea, option {
-  color: #ffffff !important; /* Solid bright white globally in all modes (no black text!) */
+  color: var(--foreground) !important;
+  background-color: var(--zinc-900) !important;
 }
 
 /* Visible high contrast placeholder styling */
@@ -86,7 +146,6 @@ input::placeholder, textarea::placeholder {
 .dark input::placeholder, .dark textarea::placeholder {
   color: #a1a1aa !important; /* Zinc 400 */
 }
-
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
@@ -103,5 +162,3 @@ input::placeholder, textarea::placeholder {
 .dark ::-webkit-scrollbar-thumb {
   background: #3f3f46;
 }
-
-

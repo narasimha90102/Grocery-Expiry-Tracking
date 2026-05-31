@@ -425,7 +425,9 @@ export default function ProfilePage() {
       const token = localStorage.getItem('accessToken') || '';
       const rToken = localStorage.getItem('refreshToken') || '';
       setAuth(updatedUser, token, rToken);
-      setSuccessMsg('Language preference updated successfully!');
+      
+      // Update success message exactly as required, matching dynamic localization if available
+      setSuccessMsg(t('languageUpdated') || 'Language updated successfully');
     } catch (err) {
       setErrorMsg('Failed to update language.');
     } finally {
@@ -448,7 +450,9 @@ export default function ProfilePage() {
       const token = localStorage.getItem('accessToken') || '';
       const rToken = localStorage.getItem('refreshToken') || '';
       setAuth(updatedUser, token, rToken);
-      setSuccessMsg('Theme preference updated successfully!');
+      
+      // Update success message exactly as required, matching dynamic localization if available
+      setSuccessMsg(t('themeUpdated') || 'Theme updated successfully');
     } catch (err) {
       setErrorMsg('Failed to update theme.');
     } finally {
@@ -494,7 +498,7 @@ export default function ProfilePage() {
       <div className="select-none flex-shrink-0 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-black text-white uppercase tracking-wider">
-            PROFILE SETTINGS
+            {t('settings') || 'PROFILE SETTINGS'}
           </h2>
           <p className="text-[10px] text-green-500 font-bold uppercase tracking-widest mt-0.5">
             MANAGE CREDENTIALS & BACKUP ASSETS
@@ -510,7 +514,7 @@ export default function ProfilePage() {
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-slate-350 cursor-pointer active:scale-95 transition-all"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back</span>
+            <span>{t('back') || 'Back'}</span>
           </button>
         )}
       </div>
@@ -597,7 +601,7 @@ export default function ProfilePage() {
                   <div className="space-y-3.5 text-left">
                     <div className="space-y-1">
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                        FULL NAME
+                        {t('name') || 'FULL NAME'}
                       </label>
                       <div className="relative">
                         <User className="absolute left-3 top-3.5 w-4 h-4 text-zinc-500" />
@@ -614,7 +618,7 @@ export default function ProfilePage() {
 
                     <div className="space-y-1">
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                        EMAIL ADDRESS
+                        {t('email') || 'EMAIL ADDRESS'}
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-3.5 w-4 h-4 text-zinc-500" />
@@ -640,7 +644,7 @@ export default function ProfilePage() {
                       {loading || otpSending ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
-                        <span>SAVE PROFILE DETAILS</span>
+                        <span>{t('saveDetails') || 'SAVE PROFILE DETAILS'}</span>
                       )}
                     </button>
                   </div>
@@ -650,13 +654,13 @@ export default function ProfilePage() {
               {/* 🟢 SETTINGS LIST SECTION - Strict Requirement (Exactly this order) */}
               <section className="space-y-2">
                 {[
-                  { id: 'security', title: 'Security', icon: Shield },
-                  { id: 'backup', title: 'Backup', icon: Download },
-                  { id: 'archives', title: 'Archives', icon: History },
-                  { id: 'language', title: 'Language', icon: Globe },
-                  { id: 'theme', title: 'Theme Settings', icon: Moon },
-                  { id: 'help', title: 'Help Center', icon: HelpCircle },
-                  { id: 'logout', title: 'Logout', icon: LogOut, isDanger: true }
+                  { id: 'security', title: t('security') || 'Security', icon: Shield },
+                  { id: 'backup', title: t('backup') || 'Backup', icon: Download },
+                  { id: 'archives', title: t('archives') || 'Archives', icon: History },
+                  { id: 'language', title: t('language') || 'Language', icon: Globe },
+                  { id: 'theme', title: t('themeSettings') || 'Theme Settings', icon: Moon },
+                  { id: 'help', title: t('helpCenter') || 'Help Center', icon: HelpCircle },
+                  { id: 'logout', title: t('logout') || 'Logout', icon: LogOut, isDanger: true }
                 ].map((item) => {
                   const Icon = item.icon;
                   return (
@@ -1001,7 +1005,7 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 border-b border-zinc-800 pb-3">
                   <Globe className="w-5 h-5 text-green-400" />
                   <h3 className="text-xs font-black uppercase tracking-wider text-white">
-                    Select Language
+                    {t('language') || 'Select Language'}
                   </h3>
                 </div>
 
@@ -1052,7 +1056,7 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2 border-b border-zinc-800 pb-3">
                   <Moon className="w-5 h-5 text-green-400" />
                   <h3 className="text-xs font-black uppercase tracking-wider text-white">
-                    Theme Settings
+                    {t('themeSettings') || 'Theme Settings'}
                   </h3>
                 </div>
 

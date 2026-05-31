@@ -62,10 +62,10 @@ export default function DashboardPage() {
       <div className="flex-shrink-0 flex items-center justify-between">
         <div className="space-y-0.5 min-w-0 flex-1 mr-2">
           <h2 className="text-[18px] font-black text-slate-850 dark:text-zinc-100 tracking-tight leading-none truncate whitespace-nowrap">
-            Hi, {user?.name || 'User'} 👋
+            {t('hiUser') ? t('hiUser').replace('User', user?.name || 'User').replace('యూజర్', user?.name || 'User').replace('यूज़र', user?.name || 'User') : `Hi, ${user?.name || 'User'}`} 👋
           </h2>
           <span className="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 block leading-none truncate">
-            Let's keep your groceries fresh
+            {t('slogan') || "Let's keep your groceries fresh"}
           </span>
         </div>
         
@@ -93,7 +93,7 @@ export default function DashboardPage() {
       {/* 2. Locked Expiry Overview Section (3 Cards in a row) */}
       <div className="flex-shrink-0">
         <h3 className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-2">
-          Expiry Overview
+          {t('overview') || 'Expiry Overview'}
         </h3>
         
         <div className="grid grid-cols-3 gap-2.5">
@@ -106,7 +106,7 @@ export default function DashboardPage() {
               {expiredCount}
             </span>
             <span className="text-[9px] font-bold text-slate-450 dark:text-zinc-500 uppercase tracking-wider mt-1.5 block leading-none">
-              Expired
+              {t('expired') || 'Expired'}
             </span>
           </div>
 
@@ -119,7 +119,7 @@ export default function DashboardPage() {
               {expiringSoonCount}
             </span>
             <span className="text-[9px] font-bold text-slate-450 dark:text-zinc-500 uppercase tracking-wider mt-1.5 block leading-none">
-              Expiring Soon
+              {t('expiringSoon') || 'Expiring Soon'}
             </span>
           </div>
 
@@ -132,7 +132,7 @@ export default function DashboardPage() {
               {goodCount}
             </span>
             <span className="text-[9px] font-bold text-slate-450 dark:text-zinc-500 uppercase tracking-wider mt-1.5 block leading-none">
-              Good
+              {t('good') || 'Good'}
             </span>
           </div>
         </div>
@@ -142,13 +142,13 @@ export default function DashboardPage() {
       <div className="flex-1 min-h-0 flex flex-col">
         <div className="flex justify-between items-center mb-2 flex-shrink-0">
           <h3 className="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">
-            Expiring Soon
+            {t('expiringSoon') || 'Expiring Soon'}
           </h3>
           <button 
             onClick={() => router.push('/all-groceries')}
             className="text-[10px] font-black text-[#2E7D32] hover:underline cursor-pointer"
           >
-            View all
+            {t('viewAll') || 'View all'}
           </button>
         </div>
 
@@ -157,14 +157,14 @@ export default function DashboardPage() {
             <div className="flex-1 flex flex-col items-center justify-center py-6 gap-2">
               <Loader2 className="w-5 h-5 text-primary animate-spin" />
               <span className="text-[9px] font-bold text-slate-450 dark:text-zinc-500 uppercase tracking-wider">
-                Loading list...
+                {t('loading') || 'Loading list...'}
               </span>
             </div>
           ) : expiringSoonItems.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center p-6 text-center border-2 border-dashed border-slate-100 dark:border-zinc-850 rounded-2xl">
               <span className="text-2xl block mb-1">🎉</span>
               <span className="text-[9px] font-bold text-slate-450 dark:text-zinc-500 uppercase block tracking-wider">
-                All Items in Good Standing!
+                {t('activeList') || 'All Items in Good Standing!'}
               </span>
             </div>
           ) : (
@@ -212,7 +212,11 @@ export default function DashboardPage() {
                     
                     {/* Remaining Days Pill */}
                     <span className="text-[9px] font-bold text-brand-orange bg-amber-50 dark:bg-amber-950/20 px-2 py-0.5 rounded-full border border-amber-100 dark:border-amber-950/50">
-                      In {daysLeft} {daysLeft === 1 ? 'day' : 'days'}
+                      {daysLeft === 1 
+                        ? (t('daysLeft1') || 'Tomorrow')
+                        : daysLeft === 0
+                        ? (t('daysLeft0') || 'Expires Today')
+                        : (t('daysLeft') || 'In {days} days').replace('{days}', String(daysLeft))}
                     </span>
                   </div>
                 );
